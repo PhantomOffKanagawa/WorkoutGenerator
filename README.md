@@ -7,7 +7,7 @@
     - Different from last session
 - Track previous sessions
 - Allow alternative exercise selection
-- All in browser hosted via Github Actions
+- All in browser hosted via Github Pages
 
 ## ToDo
 - [ ] Implement Everything
