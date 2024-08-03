@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planner</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="dark">
+    <h1 class="text-center">Workout Generator</h1>
+
+    <!-- <div class="mobile cover"></div> -->
+
+    <div class="dark-mode-toggle">
+      <i id="darkModeIcon" class="fa fa-moon"></i>
+    </div>
+
+    <!-- Split dropup button -->
+    <div class="btn-group dropup not-mobile">
+      <button
+        type="button"
+        class="btn btn-secondary dropdown-toggle"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <i class="fa fa-share-nodes"></i> Share
+        <span class="visually-hidden">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu">
+        <!-- Dropdown menu links -->
+        <button class="dropdown-item" href="#" onclick="shareParameters()">
+          Share Date Range
+        </button>
+        <button class="dropdown-item" href="#" onclick="loadParameters()">
+          Load Date Range
+        </button>
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item" href="#" onclick="shareSetup()">
+          Share Availability
+        </button>
+        <button class="dropdown-item" href="#" onclick="loadSetup()">
+          Overlay Availability
+        </button>
+      </ul>
+    </div>
+
+    <!-- Split dropup button -->
+    <div class="dropdown mobile">
+      <button
+        type="button"
+        class="btn btn-link"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <i class="fa fa-share-nodes"></i>
+        <span class="visually-hidden">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu">
+        <!-- Dropdown menu links -->
+        <button class="dropdown-item" href="#" onclick="shareParameters()">
+          Share Date Range
+        </button>
+        <button class="dropdown-item" href="#" onclick="loadParameters()">
+          Load Date Range
+        </button>
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item" href="#" onclick="shareSetup()">
+          Share Availability
+        </button>
+        <button class="dropdown-item" href="#" onclick="loadSetup()">
+          Overlay Availability
+        </button>
+      </ul>
+    </div>
+
+    <div class="container">
+      <div class="row w-100 mh-100">
+        <div class="col-xl-4 mh-100">
+          <ul class="list-group list-group-flush h-100">
+            <a
+              href="#"
+              class="list-group-item list-group-item-action"
+              aria-current="true"
+            >
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Pull</h5>
+                <small class="text-white-50">Last Done Today</small>
+              </div>
+              <p class="mb-1">Upper Back, Lower Back, Biceps, Lats</p>
+              <small class="text-white-50">PPL</small>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action active">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Push</h5>
+                <small class="text-white-50">Last Done Yesterday</small>
+              </div>
+              <p class="mb-1">Shoulders, Chest, Triceps, Core</p>
+              <small class="text-white-50">PPL</small>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Legs</h5>
+                <small class="badge text-bg-success"
+                  >Last Done 1 Week Ago</small
+                >
+              </div>
+              <p class="mb-1">Glutes, Hamstrings, Calves, Adductor/Abductor</p>
+              <small class="text-white-50">PPL</small>
+            </a>
+          </ul>
+        </div>
+        <div class="col-xl-4 mh-100">
+          <ul class="list-group list-group-flush mh-100 overflow-y-auto">
+            <li class="list-group-item d-flex">
+              <div class="ms-2 flex-grow-1">
+                <div class="fw-bold">Shoulders</div>
+                <ul class="mt-3 list-group list-group-flush">
+                  <li class="list-group-item">
+                    Seated Shoulder Press
+                    <small class="text-secondary ms-2 d-block"
+                      >Dumbbell, Machine</small
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    Seated Shoulder Press 2
+                    <small class="text-secondary ms-2 d-block"
+                      >Dumbbell, Machine</small
+                    >
+                  </li>
+                  <li class="list-group-item disabled fst-italic">
+                    Z-Press
+                    <small class="text-secondary ms-2 d-block">Dumbbell</small>
+                  </li>
+                </ul>
+              </div>
+              <span class="badge text-bg-secondary rounded-pill">2</span>
+            </li>
+            <li class="list-group-item d-flex">
+              <div class="ms-2 flex-grow-1">
+                <div class="fw-bold">Chest</div>
+                <ul class="mt-3 list-group list-group-flush">
+                  <li class="list-group-item">
+                    Incline Chest Press
+                    <small class="text-secondary ms-2 d-block"
+                      >Dumbbell, Machine, Barbell</small
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    Pectoral Fly
+                    <small class="text-secondary ms-2 d-block"
+                      >Machine, Cable Machine</small
+                    >
+                  </li>
+                  <li class="list-group-item disabled fst-italic">
+                    Chest Press
+                    <small class="text-secondary ms-2 d-block"
+                      >Dumbbell, Machine, Barbell</small
+                    >
+                  </li>
+                </ul>
+              </div>
+              <span class="badge text-bg-secondary rounded-pill">2</span>
+            </li>
+            <li class="list-group-item d-flex">
+              <div class="ms-2 flex-grow-1">
+                <div class="fw-bold">Triceps</div>
+                <ul class="mt-3 list-group list-group-flush">
+                  <li class="list-group-item">
+                    Skull Crushers
+                    <small class="text-secondary ms-2 d-block"
+                      >Dumbbell, EZ-Bar</small
+                    >
+                  </li>
+                  <li class="list-group-item">
+                    Seated Weight Dip
+                    <small class="text-secondary ms-2 d-block">Machine</small>
+                  </li>
+                  <li class="list-group-item disabled fst-italic">
+                    Overhead Tricep Extensions
+                    <small class="text-secondary ms-2 d-block">Cable</small>
+                  </li>
+                  <li class="list-group-item disabled fst-italic">
+                    Tricep Extension Machine
+                    <small class="text-secondary ms-2 d-block">Machine</small>
+                  </li>
+                </ul>
+              </div>
+              <span class="badge text-bg-secondary rounded-pill">2</span>
+            </li>
+            <li class="list-group-item d-flex">
+              <div class="ms-2 flex-grow-1">
+                <div class="fw-bold">Core</div>
+                <ul class="mt-3 list-group list-group-flush">
+                  <li class="list-group-item disabled fst-italic">
+                    Crunch Machine
+                    <small class="text-secondary ms-2 d-block"
+                      >Machine, Hammer Strength MTS</small
+                    >
+                  </li>
+                  <li class="list-group-item disabled fst-italic">
+                    Rotary Torso
+                    <small class="text-secondary ms-2 d-block">Machine</small>
+                  </li>
+                </ul>
+              </div>
+              <span class="badge text-bg-secondary rounded-pill">0</span>
+            </li>
+          </ul>
+        </div>
+        <div class="col-xl-4 mh-100">
+          <button class="btn btn-outline-info w-100" type="button" onclick="showToast('Generated Successfully', `Workout Was Generated<br>Workout Contains ## Duplicates From Last Session`)">
+            Generate
+          </button>
+          <ul class="mt-3 list-group list-group-flush mh-100 overflow-y-auto">
+            <li class="list-group-item">
+              Seated Shoulder Press <a
+                class="text-secondary control"
+                data-bs-toggle="collapse"
+                href="#collapse-1"
+                role="button"
+                aria-expanded="false"
+                aria-controls="collapse-1"
+              >
+                (Replace)
+              </a>
+              <small class="text-secondary ms-2 d-block"
+                >Dumbbell, Machine
+              </small>
+              <div class="collapse my-1" id="collapse-1">
+                <div class="card card-body p-0">
+                <ul class="m-0 list-group list-group-flush">
+                  <a href="#" class="list-group-item text-secondary fst-italic">
+                    Chest Press
+                    <small class="text-secondary ms-2 d-block"
+                      >Dumbbell, Machine, Barbell</small
+                    >
+                  </a>
+                </ul>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              Seated Shoulder Press 2<a
+                class="text-secondary control"
+                data-bs-toggle="collapse"
+                href="#collapse-2"
+                role="button"
+                aria-expanded="false"
+                aria-controls="collapse-2"
+              >
+                (Replace)
+              </a>
+              <small class="text-secondary ms-2 d-block"
+                >Dumbbell, Machine
+              </small>
+              <div class="collapse my-1" id="collapse-2">
+                <div class="card card-body p-0">
+                <ul class="m-0 list-group list-group-flush">
+                  <a href="#" class="list-group-item text-secondary fst-italic">
+                    Chest Press
+                    <small class="text-secondary ms-2 d-block"
+                      >Dumbbell, Machine, Barbell</small
+                    >
+                  </a>
+                </ul>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              Incline Chest Press<a
+                class="text-secondary control"
+                data-bs-toggle="collapse"
+                href="#collapse-2"
+                role="button"
+                aria-expanded="false"
+                aria-controls="collapse-2"
+              >
+                (Replace)
+              </a>
+              <small class="text-secondary ms-2 d-block"
+                >Dumbbell, Machine, Barbell</small
+              >
+            </li>
+            <li class="list-group-item">
+              Pectoral Fly<a
+                class="text-secondary control"
+                data-bs-toggle="collapse"
+                href="#collapse-2"
+                role="button"
+                aria-expanded="false"
+                aria-controls="collapse-2"
+              >
+                (Replace)
+              </a>
+              <small class="text-secondary ms-2 d-block"
+                >Machine, Cable Machine</small
+              >
+            </li>
+            <li class="list-group-item">
+              Skull Crushers<a
+                class="text-secondary control"
+                data-bs-toggle="collapse"
+                href="#collapse-2"
+                role="button"
+                aria-expanded="false"
+                aria-controls="collapse-2"
+              >
+                (Replace)
+              </a>
+              <small class="text-secondary ms-2 d-block"
+                >Dumbbell, EZ-Bar</small
+              >
+            </li>
+            <li class="list-group-item">
+              Seated Weight Dip<a
+                class="text-secondary control"
+                data-bs-toggle="collapse"
+                href="#collapse-2"
+                role="button"
+                aria-expanded="false"
+                aria-controls="collapse-2"
+              >
+                (Replace)
+              </a>
+              <small class="text-secondary ms-2 d-block">Machine</small>
+            </li>
+            <li class="list-group-item disabled fst-italic">
+              Crunch Machine<a
+                class="text-secondary control"
+                data-bs-toggle="collapse"
+                href="#collapse-2"
+                role="button"
+                aria-expanded="false"
+                aria-controls="collapse-2"
+              >
+                (Replace)
+              </a>
+              <small class="text-secondary ms-2 d-block"
+                >Machine, Hammer Strength MTS</small
+              >
+            </li>
+            <li class="list-group-item disabled fst-italic">
+              Rotary Torso<a
+                class="text-secondary control"
+                data-bs-toggle="collapse"
+                href="#collapse-2"
+                role="button"
+                aria-expanded="false"
+                aria-controls="collapse-2"
+              >
+                (Replace)
+              </a>
+              <small class="text-secondary ms-2 d-block">Machine</small>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="spacer mobile"></div>
+
+    <!-- <div class="container">
+      <div class="form-group row mb-1">
+        <label for="startDate" class="col-sm-2 col-form-label"
+          >Start Date:</label
+        >
+        <div class="col-sm-10">
+          <input type="date" id="startDate" class="form-control" />
+        </div>
+      </div>
+      <div hidden class="form-group row mb-1">
+        <label for="numDays" class="col-sm-2 col-form-label"
+          >Number of Days:</label
+        >
+        <div class="col-sm-10">
+          <input type="number" id="numDays" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group row mb-3">
+        <label for="endDate" class="col-sm-2 col-form-label">End Date:</label>
+        <div class="col-sm-10">
+          <input type="date" id="endDate" class="form-control" />
+        </div>
+      </div>
+      <button class="btn btn-primary w-100 mt-1" onclick="generateCalendar()">
+        Generate Calendar
+      </button>
+      <table class="table table-bordered calendar mt-3">
+        <thead>
+          <tr>
+            <th>Sun</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+          </tr>
+        </thead>
+        <tbody id="calendar-body"></tbody>
+      </table>
+
+      <div class="spacer"></div>
+
+      <div class="text-center file-buttons">
+        <button class="btn btn-info" onclick="saveCalendar()">
+          <i class="fa fa-cloud-arrow-up"></i> Save to Browser
+        </button>
+        <button class="btn btn-secondary" onclick="loadCalendar()">
+          <i class="fa-solid fa-cloud-arrow-down"></i> Load from Browser
+        </button>
+        <button class="btn btn-info" onclick="downloadCalendar()">
+          <i class="fa fa-floppy-disk"></i> Save to File
+        </button>
+        <button class="btn btn-secondary" onclick="uploadCalendar()">
+          <i class="fa-regular fa-folder-open"></i> Load File
+        </button>
+        <input
+          type="file"
+          id="fileInput"
+          style="display: none"
+          onchange="handleFileUpload(event)"
+        />
+      </div>
+    </div> -->
+
+    <div class="footer">
+      <div class="text-center fit-availability">
+        <!-- <button
+          class="btn btn-danger availability"
+          onclick="setStatus('busy', this)"
+        >
+          Busy
+        </button>
+        <button
+          class="btn btn-success availability"
+          onclick="setStatus('available', this)"
+        >
+          Available
+        </button>
+        <button
+          class="btn btn-primary availability"
+          onclick="setStatus('out-of-office', this)"
+        >
+          Out of Office
+        </button>
+        <button
+          class="btn btn-warning availability"
+          onclick="setStatus('partly-available', this)"
+        >
+          Partly Available
+        </button> -->
+      </div>
+    </div>
+
+    <div
+      id="toast-container"
+      class="toast-container position-fixed bottom-0 end-0 p-3"
+    ></div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
+  </body>
+</html>
